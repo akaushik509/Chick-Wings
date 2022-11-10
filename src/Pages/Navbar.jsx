@@ -20,7 +20,7 @@ import { SearchIcon} from '@chakra-ui/icons';
 import Login from "./Login";
 import {AppContext} from "../Context/AppContextProvider";
 import { useContext } from "react";
-import Cart from "../Components/Cart";
+import Cart from "./Cart";
 import Home from "./Home";
 import { Link, NavLink } from "react-router-dom";
 import Chicken from "./Chicken";
@@ -28,8 +28,8 @@ import Chicken from "./Chicken";
 function Navbar(){
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { authState } = useContext(AppContext);
-
+    const { authState,handleLogout } = useContext(AppContext);
+   
     return (
         <div>
             {/* Top Why Licious */}
@@ -111,10 +111,10 @@ function Navbar(){
                     </Stack>
 
                     {/* Category */}
-                    <Flex gap="10px" margin="15px 15px 15px 15px">
-                        <Image src="https://www.licious.in/img/rebranding/category-dropdown-icon.svg"/>
+                    <Flex gap="10px" >
+                        <Image src="https://www.licious.in/img/rebranding/category-dropdown-icon.svg" margin="25px 0px 25px 25px"/>
                         <Menu>
-                            <MenuButton as={Button}  _hover={{color:"#FF6200"}} bg="white">
+                            <MenuButton as={Button}  _hover={{color:"#FF6200"}} bg="white" marginTop={"15px"}>
                                 Category
                             </MenuButton>
                             <MenuList>
@@ -218,12 +218,15 @@ function Navbar(){
                     <Flex gap="10px" margin="15px 15px 15px 15px">
                         <Image src="https://www.licious.in/img/rebranding/profile_icon.svg"/>
                         <Box>
-                            {/* {!authState.isAuth?<Login/>:<Home/>} */}
-                            <Button><NavLink to="/login">Login</NavLink></Button>
+                            
+                            <Button>{authState.isAuth?"Logout":<NavLink to="/login">Login</NavLink>}</Button>
+                            
                         </Box>
                     </Flex>
 
-                    <div><Cart/></div>
+                    <Box margin="15px 15px 15px 15px">
+                        <Button><NavLink to="/cart">Cart</NavLink></Button>
+                    </Box>
 
                 </Flex>
             </Box>

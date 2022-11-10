@@ -5,7 +5,7 @@ import { AppContext } from "../Context/AppContextProvider";
 function PrivateRoute({ children }) {
   const { authState } = useContext(AppContext);
   if (!authState.isAuth) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
   return children;
 }

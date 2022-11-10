@@ -6,7 +6,7 @@ import Home from "./Home";
 import PrivateRoute from "../Components/PrivateRoute";
 import Fish from "./Fish";
 import Chicken from "./Chicken";
-import SubCategory from "./SubCategory";
+import Cart from "./Cart";
 
 function AllRoutes() {
   return (
@@ -14,8 +14,9 @@ function AllRoutes() {
       <Route path="/" element={<Home/>}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/chicken" element={<><Chicken /></>}></Route>
-      <Route path="/fish" element={<PrivateRoute><Fish /></PrivateRoute>}></Route>
-      <Route path="/subcategory" element={<PrivateRoute><SubCategory /></PrivateRoute>}></Route>
+      <Route path="/fish" element={<><Fish /></>}></Route>
+      <Route path="/cart" element={<><Cart /></>}></Route>
+      
     </Routes>
   );
 }
