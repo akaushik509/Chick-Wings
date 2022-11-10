@@ -4,24 +4,32 @@ import {useState} from "react";
 export const AppContext = React.createContext();
 
 AppContext.displayName = "CONTEXT1234";
-const initState = {
-    isAuth: false,
-    mob:null
-  };
+
 
 function AppContextProvider({ children }) {
-    const [state, setState] = useState(initState);
+    const [state, setState] = useState({
+        isAuth: false,
+        username:null
+    });
 
-    function handleLogin(mob) {
+    const handleLogin=(username)=> {
+        
         setState({
           ...state,
           isAuth: true,
-          mob
+          username
         });
+        
       }
 
-      function handleLogout() {
-        setState(initState);
+      const handleLogout=()=>{
+        
+        setState({
+            ...state,
+            isAuth:true,
+            username:null
+        });
+       
       }
 
       const value = { authState:state, handleLogin, handleLogout };
