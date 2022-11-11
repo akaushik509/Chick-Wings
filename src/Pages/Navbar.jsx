@@ -24,6 +24,7 @@ import Cart from "./Cart";
 import Home from "./Home";
 import { Link, NavLink } from "react-router-dom";
 import Chicken from "./Chicken";
+import { Navigate } from "react-router-dom";
 
 function Navbar(){
 
@@ -34,7 +35,7 @@ function Navbar(){
         <div>
             {/* Top Why Licious */}
             <Box bg="#EAEAEA"  h="25px">
-                <Flex w="80%" border="1px solid" margin="auto">
+                <Flex w="80%" margin="auto">
                     <Box>
                         <Flex gap="10px">
                             <p size="xs">Why Chick Wings?</p>
@@ -69,8 +70,8 @@ function Navbar(){
             top:"0px",
             marginBottom:"0px",
             }} bg="white" h="70px">
-                <Flex w="80%" border="1px solid" gap="20px">
-                    <Image src="https://i.ibb.co/cCpV9hk/logo.jpg" margin="15px 15px 15px 15px"/>
+                <Flex w="80%"  gap="20px">
+                    <Image src="https://i.ibb.co/cCpV9hk/logo.jpg" margin="15px 15px 15px 15px" ></Image>
 
                     <Flex>
                         <Image src="https://www.licious.in/img/rebranding/location_icon.svg" margin="15px 15px 15px 15px"/>
@@ -92,7 +93,7 @@ function Navbar(){
                                     </ModalBody>
 
                                     <ModalFooter gap="10px">
-                                        <Button variant='ghost' border="1px solid">Stay Here</Button>
+                                        <Button variant='ghost' >Stay Here</Button>
                                         <Button colorScheme='red' mr={3} onClick={onClose}>
                                             Change Area
                                         </Button>

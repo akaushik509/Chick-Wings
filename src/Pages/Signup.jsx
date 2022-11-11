@@ -24,30 +24,49 @@ import { Box,
 } from "@chakra-ui/react";
 
 
-function Login() {
-    const {authState, handleLogin, handleLogout} = useContext(AppContext);
+
+function Signup() {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  
+  const { loginUser, authState } = useContext(AppContext);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getTodos().then((result) => {
+        console.log(result.data)
+        let dataLog = result.data
+        let filter = dataLog.filter(function(el){
+            return username===el.username
+        })
+            if(filter.length>0){
+                alert("No")  
+                return;           
+            }else{
+                fetch("https://thawing-eyrie-70822.herokuapp.com/api/login2", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        alert("Account Created");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            }
+        })
+    ;
+}
+  
+  
 
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        getTodos().then((res) => {
-            console.log(res.data)
-            let dataLog = res.data
-            dataLog.forEach(function(el){
-                if(username===el.username && password==el.password){
-                    handleLogin(username);               
-                    console.log(authState.isAuth)
-                    navigate("/");
-                }else{
-                    console.log("No");
-                }
-            })
-        });
-    }
-
-    if (!authState.isAuth) {
+    {
         return (
           <div>
             <Flex w="80%" margin="auto">
@@ -83,11 +102,11 @@ function Login() {
                 </div>
                 <div>
                 <Button type="submit" marginTop={"20px"}>
-                    SUBMIT
+                    SignUp
                 </Button>
                 </div>
                 </form>
-                <Button backgroundColor={"red"} color="white" marginTop={"20px"}><NavLink to="/signup">Dont Have An Account Signup Now!</NavLink></Button>
+                <Button backgroundColor={"red"} color="white" marginTop={"20px"}><NavLink to="/login">SignIn Now!</NavLink></Button>
                 </Box>
             </Flex>
             
@@ -100,4 +119,4 @@ function Login() {
  
 }
 
-export default Login
+export default Signup
