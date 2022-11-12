@@ -5,14 +5,21 @@ import { Box,Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
 import { Navigate } from 'react-router-dom';
 import { getcart } from './api';
 import { Link, NavLink } from "react-router-dom";
+import Footer from './Footer';
 
 const getTodos = (args = {}) => {
     const {page = 1 } = args;
     return fetch(
       `https://thawing-eyrie-70822.herokuapp.com/api/cart?_page=${page}&_limit=3`
-    ).then((res) => res.json());
+    ).then((res) => res.json())
   };
   
+ /*  const getTodos = (args = {}) => {
+    const {page = 1 } = args;
+    return axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/cart?_page=${page}&_limit=3`);
+  }; */
+
+
 const deleteTodo = (id) => {
     return fetch(
       `https://thawing-eyrie-70822.herokuapp.com/api/cart/${id}`,
@@ -26,7 +33,8 @@ const deleteTodo = (id) => {
   };
 
 function Cart() {
-    const [loading, setLoading] = useState(false);
+    
+    const [sum, setSum] = useState(0);
     const [todos, setTodos] = useState([]);
     const [titleSortBy, setTitleSortBy] = useState("ASC");
     const [page, setPage] = useState(1);
@@ -39,7 +47,7 @@ function Cart() {
    
     
     //let dataCart = axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/cart`)
-    let sum=JSON.parse(localStorage.getItem("amount"));
+    //let sum=JSON.parse(localStorage.getItem("amount"));
     async function getData(){
         const url=`https://thawing-eyrie-70822.herokuapp.com/api/cart`;
         let res= await fetch(url);
@@ -49,58 +57,37 @@ function Cart() {
         for(let i=0;i<data.length;i++){
             dataCart.push(data[i].price);
         }
-        sum = dataCart.reduce(function (x, y) {
+        let sumCart = dataCart.reduce(function (x, y) {
             return x + y;
         }, 0);
-        localStorage.setItem("amount",JSON.stringify(sum));
-        
+        //localStorage.setItem("amount",JSON.stringify(sum));
+        setSum(sumCart)
     }
    
-    /* const getData = () => {
-        getcart().then((res) => {
-            console.log(res.data)
-            let dataLog = res.data
-            array=dataLog
-            let sum=dataLog.reduce((price)=>price,0)
-            return console.log(sum)
-        });   
-    } */
-   
-    /* function totalbun(){
-        return (
-            <div>
-                <Button>{JSON.parse(localStorage.getItem("amount"))}</Button>
-            </div>
-        )
-    } */
-    
       useEffect(() => {
         handleGetTodos();
-        getData()
-        let sum=JSON.parse(localStorage.getItem("amount"))
+        getData();
+        
       }, [titleSortBy, page]);
     
-      const handleGetTodos = () => {
-        setLoading(false);
-    
+      const handleGetTodos = () => {   
         getTodos({ titleSortBy, page })
           .then((res) => {
-            setTodos(res);
-            //console.log(res);
+            setTodos(res)
+            console.log(todos)
           })
           .catch((err) => {
-            setLoading(false);
           });
       };
 
       const handleDelete = (id) => {
-        setLoading(true);
+        
         deleteTodo(id)
           .then((res) => {
             handleGetTodos();
           })
           .catch((err) => {
-            setLoading(false);
+            
           });
       };
 
@@ -149,6 +136,9 @@ function Cart() {
                     <Button marginTop="20px" w="250px">Total={sum}</Button>
                     <Button marginTop="20px" w="250px"><NavLink to="/checkout">Checkout</NavLink></Button>     
                 </Flex>                
+            </div>
+            <div>
+                <Footer/>
             </div>
     </div>
   )
