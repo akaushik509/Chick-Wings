@@ -1,6 +1,7 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
 import { Box,Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
+import Footer from "./Footer";
 
 function Chicken(){
     const style={
@@ -35,7 +36,7 @@ function Chicken(){
 
     return(
         <Box width={"80%"} margin="auto" >
-            <Flex gap="30px" border={"1px solid"}>
+            <Flex gap="30px" >
                 <Box align="left">
                     <Heading size="lg">Chicken</Heading>
                 </Box>
@@ -89,9 +90,9 @@ function Chicken(){
                 }
             </Grid>
             
-            {/* {todos.map((item) => (
-                <p key={item.id}>{item.title}</p>
-            ))} */}
+            <div>
+                <Footer/>
+            </div>
         </Box>
     )
 }

@@ -1,6 +1,7 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
 import { Box,Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
+import Footer from "./Footer";
 
 function Fish(){
     const style={
@@ -35,7 +36,7 @@ function Fish(){
     
     return(
         <Box width={"80%"} margin="auto" >
-            <Flex gap="30px" border={"1px solid"}>
+            <Flex gap="30px" >
                 <Box align="left">
                     <Heading size="lg">Fish</Heading>
                 </Box>
@@ -88,6 +89,9 @@ function Fish(){
                     ))
                 }
             </Grid>
+            <div>
+                <Footer/>
+            </div>
         </Box>
     )
 }

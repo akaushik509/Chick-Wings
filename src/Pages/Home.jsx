@@ -23,7 +23,7 @@ function Home(){
             <div >
             <Box w="100%" p={4} h="400px" margin="auto">
                 <ImageSlider slides={SlideData} />
-                <Box marginTop="20px" w="80%" border={"1px solid black"} margin="auto">
+                <Box marginTop="20px" w="80%" margin="auto">
                     <Box align="left">
                         <Heading size="lg">Shop by categories</Heading>
                         <p>Freshest meats just for you</p>
