@@ -5,10 +5,9 @@ import { SlideData } from "./SlideData";
 import Footer from "./Footer";
 
 
+
 function Home(){
-    /* const style={
-        marginTop:"0px"
-    } */
+    
     const style={
         boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         padding:"10px",

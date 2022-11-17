@@ -35,15 +35,19 @@ function Login() {
         getTodos().then((res) => {
             console.log(res.data)
             let dataLog = res.data
+            let flag = false;
             dataLog.forEach(function(el){
-                if(username===el.username && password==el.password){
-                    handleLogin(username);               
-                    console.log(authState.isAuth)
-                    navigate("/");
-                }else{
-                    console.log("No");
+                if(username===el.username && password===el.password){
+                    return (flag = true);                
                 }
             })
+            if (flag) {
+                alert("You Are Successfully Logged In.");
+                handleLogin(username,authState.isAuth=true);               
+                navigate("/");
+              } else {
+                alert("Wrong ID/Password");
+              }
         });
     }
 

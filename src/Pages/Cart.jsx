@@ -1,95 +1,17 @@
 import React from 'react'
-import {useState,useEffect} from "react";
-import axios from "axios";
-import { Box,Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
-import { Navigate } from 'react-router-dom';
-import { getcart } from './api';
-import { Link, NavLink } from "react-router-dom";
+import { Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 import Footer from './Footer';
 
-const getTodos = (args = {}) => {
-    const {page = 1 } = args;
-    return fetch(
-      `https://thawing-eyrie-70822.herokuapp.com/api/cart?_page=${page}&_limit=3`
-    ).then((res) => res.json())
-  };
-  
- /*  const getTodos = (args = {}) => {
-    const {page = 1 } = args;
-    return axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/cart?_page=${page}&_limit=3`);
-  }; */
 
-
-const deleteTodo = (id) => {
-    return fetch(
-      `https://thawing-eyrie-70822.herokuapp.com/api/cart/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    ).then((res) => res.json());
-  };
-
-function Cart() {
-    
-    const [sum, setSum] = useState(0);
-    const [todos, setTodos] = useState([]);
-    const [titleSortBy, setTitleSortBy] = useState("ASC");
-    const [page, setPage] = useState(1);
+function Cart({cart,handleAddintoCart,handleRemoveProduct}) {
+ 
     const style={
         boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-        padding:"10px",
-        
+        padding:"10px",  
     }
     
-   
-    
-    //let dataCart = axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/cart`)
-    //let sum=JSON.parse(localStorage.getItem("amount"));
-    async function getData(){
-        const url=`https://thawing-eyrie-70822.herokuapp.com/api/cart`;
-        let res= await fetch(url);
-        let data=await res.json();
-        //console.log(data); 
-        let dataCart=[];
-        for(let i=0;i<data.length;i++){
-            dataCart.push(data[i].price);
-        }
-        let sumCart = dataCart.reduce(function (x, y) {
-            return x + y;
-        }, 0);
-        //localStorage.setItem("amount",JSON.stringify(sum));
-        setSum(sumCart)
-    }
-   
-      useEffect(() => {
-        handleGetTodos();
-        getData();
-        
-      }, [titleSortBy, page]);
-    
-      const handleGetTodos = () => {   
-        getTodos({ titleSortBy, page })
-          .then((res) => {
-            setTodos(res)
-            console.log(todos)
-          })
-          .catch((err) => {
-          });
-      };
-
-      const handleDelete = (id) => {
-        
-        deleteTodo(id)
-          .then((res) => {
-            handleGetTodos();
-          })
-          .catch((err) => {
-            
-          });
-      };
+    const total = cart.reduce((price,item)=>price+item.quantity*item.price,0)
 
   return (
     <div>
@@ -97,7 +19,7 @@ function Cart() {
                     templateColumns='repeat(3, 1fr)'
                     gap={20} width="80%" margin={"auto"}>
                 {
-                    todos.map((item)=>(
+                    cart.map((item)=>(
                         <div style={style} key={item.id}>
                             <Image src={item.image}/>
                             <Heading size="xs">{item.title}</Heading>
@@ -110,7 +32,11 @@ function Cart() {
                             <br/>
                             <Flex justifyContent={"space-between"}>
                                 <Heading size="md">Rs{item.price}</Heading>
-                                <Button backgroundColor={"red"} color="white" onClick={() => handleDelete(item.id)}>Delete</Button>
+                                <Flex>
+                                  <Button onClick={()=>handleAddintoCart(item)}>+</Button>
+                                  <Button>{item.quantity}</Button>
+                                  <Button onClick={()=>handleRemoveProduct(item)}>-</Button>
+                                </Flex>
                             </Flex>
                             <br/>
                             <hr/>
@@ -123,18 +49,9 @@ function Cart() {
                 }
             </Grid>
             <div>
-                <Button
-                onClick={() => setPage((prev) => prev - 1)}
-                disabled={page === 1}>
-                Prev {" "}
-                </Button>
-                <Button>{page}</Button>
-                <Button onClick={() => setPage((prev) => prev + 1)}>Next </Button>
-            </div>
-            <div>
                  <Flex w="80%" margin="auto">
-                    <Button marginTop="20px" w="250px">Total={sum}</Button>
-                    <Button marginTop="20px" w="250px"><NavLink to="/checkout">Checkout</NavLink></Button>     
+                    <Button marginTop="20px" w="250px">Total={total}</Button>
+                    <Button marginTop="20px" w="250px"><NavLink to="/checkout" >Checkout</NavLink></Button>     
                 </Flex>                
             </div>
             <div>

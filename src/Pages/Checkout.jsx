@@ -1,34 +1,10 @@
-import React,{useEffect,useState} from 'react'
-import { Box,Heading,Grid,Image,Flex,Button, FormControl,
+import React from 'react'
+import { Box,Heading,Image,Flex,Button, FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,Input } from "@chakra-ui/react";
 
-  //let sum=JSON.parse(localStorage.getItem("amount"))
-
-function Checkout() {
-  const [sum, setSum] = useState(0);
-  async function GetData(){
-    
-
-    const url=`https://thawing-eyrie-70822.herokuapp.com/api/cart`;
-    let res= await fetch(url);
-    let data=await res.json(); 
-    let dataCart=[];
-    for(let i=0;i<data.length;i++){
-        dataCart.push(data[i].price);
-    }
-    let sumCart = dataCart.reduce(function (x, y) {
-        return x + y;
-    }, 0);
-    //localStorage.setItem("amount",JSON.stringify(sum));
-    setSum(sumCart)
-}
-
-useEffect(() => {
-  GetData();
-}, []);
-
+function Checkout({cart}) {
+  const total = cart.reduce((price,item)=>price+item.quantity*item.price,0)
   return (
     <div>
       <Flex w="80%"margin={"auto"}>
@@ -45,7 +21,7 @@ useEffect(() => {
               <Input type='date' placeholder="valid thru"/>
               <FormLabel>CVV</FormLabel>
               <Input type='number' placeholder='CVV'/>
-              <Button type="submit" bg="#FB641B" onClick={()=>{alert("Payment Done")}}>Pay - Rs.{sum}</Button>
+              <Button type="submit" bg="#FB641B" onClick={()=>{alert("Payment Done")}}>Pay - Rs.{total}</Button>
               <FormHelperText>Add and secure your card as per RBI guidelines.</FormHelperText>
             </FormControl>
             </Box>
