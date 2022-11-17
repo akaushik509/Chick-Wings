@@ -26,11 +26,12 @@ import { Box,
 
 
 function Signup() {
-    const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
   const { loginUser, authState } = useContext(AppContext);
   const navigate = useNavigate();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     getTodos().then((result) => {
@@ -40,7 +41,7 @@ function Signup() {
             return username===el.username
         })
             if(filter.length>0){
-                alert("No")  
+                alert("Account Allready Exist")  
                 return;           
             }else{
                 fetch("https://thawing-eyrie-70822.herokuapp.com/api/login2", {

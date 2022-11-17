@@ -3,37 +3,24 @@ import axios from "axios";
 import { Box,Heading,Grid,Image,Flex,Button } from "@chakra-ui/react";
 import Footer from "./Footer";
 
-function Fish(){
+function Fish({handleAddintoCart}){
     const style={
         boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         padding:"10px",
         
     }
     const [todos, setTodos] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
+    const [cart, setCart] = useState([]);
     const getData = () => {
        return axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/fish`);
     };
     useEffect(() => {
         getData().then((res) => setTodos(res.data));
       }, []);
-
-    const handleAddintoCart = (e)=>{
-        const {id,image,title,description,qty,price}=e
-        fetch("https://thawing-eyrie-70822.herokuapp.com/api/cart", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ image,title,description,qty,price })
-        })
-        .then((res) => res.json())
-          .catch((err) => {
-            console.log(err);
-          });
-        console.log(e);
-    }
     
+     
+    
+
     return(
         <Box width={"80%"} margin="auto" >
             <Flex gap="30px" >
@@ -89,6 +76,7 @@ function Fish(){
                     ))
                 }
             </Grid>
+            
             <div>
                 <Footer/>
             </div>
