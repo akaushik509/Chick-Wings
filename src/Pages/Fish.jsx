@@ -12,7 +12,7 @@ function Fish({handleAddintoCart}){
     const [todos, setTodos] = useState([]);
     const [cart, setCart] = useState([]);
     const getData = () => {
-       return axios.get(`https://thawing-eyrie-70822.herokuapp.com/api/fish`);
+       return axios.get(`https://mock-server-kkz2.onrender.com/fish`);
     };
     useEffect(() => {
         getData().then((res) => setTodos(res.data));

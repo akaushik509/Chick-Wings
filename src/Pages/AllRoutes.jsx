@@ -18,8 +18,7 @@ function AllRoutes({cart,handleAddintoCart,handleRemoveProduct,total}) {
       <Route path="/chicken" element={<PrivateRoute><Chicken handleAddintoCart={handleAddintoCart}/></PrivateRoute>}></Route>
       <Route path="/fish" element={<PrivateRoute><Fish /></PrivateRoute>}></Route>
       <Route path="/checkout" element={<PrivateRoute><Checkout cart={cart}/></PrivateRoute>}></Route>
-      <Route path="/cart" element={<PrivateRoute><Cart cart={cart} handleAddintoCart={handleAddintoCart} handleRemoveProduct={handleRemoveProduct}/></PrivateRoute>}></Route>
-      
+      <Route path="/cart" element={<PrivateRoute><Cart cart={cart} handleAddintoCart={handleAddintoCart} handleRemoveProduct={handleRemoveProduct}/></PrivateRoute>}></Route> 
     </Routes>
   );
 }

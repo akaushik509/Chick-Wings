@@ -13,19 +13,13 @@ import { Box,
     Button,
     useDisclosure,
     ModalCloseButton,
-    ModalFoote,InputGroup,InputLeftElement,InputRightElement,Stack,ModalFooter,MenuButton,Menu,ChevronDownIcon,MenuList,MenuItem
+    InputGroup,InputRightElement,Stack,ModalFooter,MenuButton,Menu,MenuList,MenuItem
 
 } from "@chakra-ui/react";
 import { SearchIcon} from '@chakra-ui/icons';
-import Login from "./Login";
 import {AppContext} from "../Context/AppContextProvider";
 import { useContext } from "react";
-import Cart from "./Cart";
-import Home from "./Home";
-import { Link, NavLink } from "react-router-dom";
-import Chicken from "./Chicken";
-import { Navigate } from "react-router-dom";
-
+import {  NavLink } from "react-router-dom";
 
 function Navbar(){
 
