@@ -44,7 +44,7 @@ function Signup() {
                 alert("Account Allready Exist")  
                 return;           
             }else{
-                fetch("https://thawing-eyrie-70822.herokuapp.com/api/login2", {
+                fetch("https://mock-server-kkz2.onrender.com/login2", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
